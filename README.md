@@ -8,10 +8,9 @@
 5. [Collaboration](#collaboration)
 6. [Github](#github)
 
-[Deployed Link](https://tnj415.github.io/ecommerceBackend/)
+TBA: [Walk Through Video]()
 # General Info
 * This is a complete backend application for an eCommerce website
-* ![Image text](./public/images/ss.PNG)
 
 # Technologies
 * This website was created with HTML, CSS, Javascript, Node JS, and Express on Microsoft Visual Studio Code.
