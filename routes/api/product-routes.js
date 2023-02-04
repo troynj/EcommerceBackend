@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 });
 
 // Handle GET requests to retrieve all products
-router.get("/api/users/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     // Find the user with the specified id using findByPk
     const product = await Product.findByPk(req.params.id);
