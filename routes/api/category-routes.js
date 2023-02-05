@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
   // create a new category
   try {
     // Create a new tag with the extracted data
-    const createdTag = await Tag.create(req.body);
+    const createdTag = await Category.create(req.body);
 
     // Return the newly created tag in the response
     return res.status(201).json(createdTag);
@@ -51,24 +51,25 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Handle PUT requests to update a category's name by its `id` value
 router.put("/:id", async (req, res) => {
   // update a category by its `id` value
   try {
+    const { id } = req.params
     // Update the tag's name in the database
     //returns an array of the updated rows
     const [updated] = await Category.update(req.body, {
-      where: { id: req.params.id },
+      where: { id },
     });
-
+    
     // If the tag is not found, return a 404 response with a message
     if (!updated) {
       return res.status(404).json({ message: "Category not found" });
     }
-
-    // Fetch the updated tag data
+  
+    // Fetch the updated category data
     const updatedCategory = await Category.findByPk(id);
-
-    // Return the updated tag data in the response
+    // Return the updated category data in the response
     return res.status(200).json(updatedCategory);
   } catch (err) {
     // In case of any errors, return a 400 response with the error message

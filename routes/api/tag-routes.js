@@ -21,7 +21,7 @@ router.get("/:id", async (req, res) => {
   // be sure to include its associated Product data
   try {
     const tagData = await Tag.findByPk(req.params.id, {
-      include: [{ model: Product, through: ProductTag }],
+      include: [{ model: Product}],
     });
 
     if (!tagData) {
@@ -51,11 +51,13 @@ router.post("/", async (req, res) => {
 
 // Handle PUT requests to update a tag's name by its `id` value
 router.put("/:id", async (req, res) => {
+    // update a tag by its `id` value
   try {
+    const { id } = req.params
     // Update the tag's name in the database
     //returns an array of the updated rows
     const [updated] = await Tag.update(req.body, {
-      where: { tag_id: req.params.id },
+      where: { id },
     });
 
     // If the tag is not found, return a 404 response with a message
