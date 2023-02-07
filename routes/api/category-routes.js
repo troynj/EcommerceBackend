@@ -21,17 +21,17 @@ router.get("/:id", async (req, res) => {
   // be sure to include its associated Products
   const { id } = req.params;
   try {
-    const tagData = await Tag.findByBk(req.params.id, {
+    const categoryData = await Category.findByPk(id, {
       where: { id },
-      include: { model: product_tag },
+      include: { model: Product },
     });
 
-    if (!tagData) {
-      res.status(404).json({ message: "No Tag found with that id!" });
+    if (!categoryData) {
+      res.status(404).json({ message: "No category found with that id!" });
       return;
     }
 
-    res.status(200).json(tagData);
+    res.status(200).json(categoryData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -55,18 +55,18 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   // update a category by its `id` value
   try {
-    const { id } = req.params
+    const { id } = req.params;
     // Update the tag's name in the database
     //returns an array of the updated rows
     const [updated] = await Category.update(req.body, {
       where: { id },
     });
-    
+
     // If the tag is not found, return a 404 response with a message
     if (!updated) {
       return res.status(404).json({ message: "Category not found" });
     }
-  
+
     // Fetch the updated category data
     const updatedCategory = await Category.findByPk(id);
     // Return the updated category data in the response

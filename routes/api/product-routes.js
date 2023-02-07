@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
   try {
     // Retrieve all tags from the database
     const products = await Product.findAll({
-      include: [{ model: Category }, { model: Tag }],
+      include: [{ model: Category }, { model: Tag, through: {attributes: []} }],
     });
 
     // Return the retrieved tags in the response
@@ -25,7 +25,7 @@ router.get("/:id", async (req, res) => {
   try {
     // Find the user with the specified id using findByPk
     const product = await Product.findByPk(req.params.id, {
-      include: [{ model: Category }, { model: Tag }],
+      include: [{ model: Category }, { model: Tag, through: {attributes: []}  }],
     });
     // be sure to include its associated Category and Tag data
 
@@ -49,6 +49,7 @@ router.post("/", (req, res) => {
       product_name: "Basketball",
       price: 200.00,
       stock: 3,
+      category_id: 1,
       tagIds: [1, 2, 3, 4]
     }
   */
